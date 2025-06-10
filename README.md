@@ -6,3 +6,4 @@
    * **Order Service**: Processes orders, including placing orders, tracking order status, and managing order history.
    * **Payment Service**: Handles payment processing, integrating with external payment gateways (e.g., Stripe, PayPal).
    * **Notification Service**: Sends email and SMS notifications for various events (e.g., order confirmation, shipping updates). You can use third-party services like Twilio or SendGrid for this purpose.
+   * **API Gateway**: Serves as the entry point for all client requests, routing them to the appropriate microservice. It might be worth looking into Kong, Traefik, or NGINX for this purpose.

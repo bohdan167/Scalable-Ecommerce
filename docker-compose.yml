@@ -1,1 +1,115 @@
-# Main services
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_docker
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password1234
+      POSTGRES_DB: e-commerce
+    networks:
+      - e-commerce-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo_docker
+    ports:
+      - 27017:27017
+    networks:
+      - e-commerce-network
+    volumes:
+      - mongo_data:/data/db
+
+  gateway-api:
+    build:
+      context: ./gateway-api
+    container_name: gateway-api
+    ports:
+      - 8080:8080
+    networks:
+      - e-commerce-network
+
+  user-service:
+    build:
+      context: ./user-service
+    container_name: user-service
+    ports:
+      - 8081:8081
+    networks:
+      - e-commerce-network
+    depends_on:
+      - postgres
+      - gateway-api
+    
+  product-service:
+    build:
+      context: ./product-service
+    container_name: product-service
+    ports:
+      - 8082:8082
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+      - gateway-api
+    
+  order-service:
+    build:
+      context: ./order-service
+    container_name: order-service
+    ports:
+      - 8083:8083
+    networks:
+      - e-commerce-network
+    depends_on:
+      - postgres
+      - gateway-api
+
+  payment-service:
+    build:
+      context: ./payment-service
+    container_name: payment-service
+    ports:
+      - 8084:8084
+    networks:
+      - e-commerce-network
+    depends_on:
+      - postgres
+      - gateway-api
+
+  notification-service:
+    build:
+      context: ./notification-service
+    container_name: notification-service
+    ports:
+      - 8085:8085
+    networks:
+      - e-commerce-network
+    depends_on:
+      - postgres
+      - gateway-api
+
+  shopping-service:
+    build:
+      context: ./shopping-service
+    container_name: shopping-service
+    ports:
+      - 8086:8086
+    networks:
+      - e-commerce-network
+    depends_on:
+      - mongo
+      - gateway-api
+      
+networks:
+  e-commerce-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  mongo_data:
+    driver: local
