@@ -1,0 +1,11 @@
+### VS Code ###
+.vscode/
+
+### Cursor ###
+.cursor/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
