@@ -13,15 +13,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo_docker
-    ports:
-      - 27017:27017
-    networks:
-      - e-commerce-network
-    volumes:
-      - mongo_data:/data/db
+  #mongo:
+  #  image: mongo:latest
+  #  container_name: mongo_docker
+  #  ports:
+  #    - 27017:27017
+  #  networks:
+  #    - e-commerce-network
+  #  volumes:
+  #    - mongo_data:/data/db
 
   gateway-api:
     build:
@@ -44,65 +44,65 @@ services:
       - postgres
       - gateway-api
     
-  product-service:
-    build:
-      context: ./product-service
-    container_name: product-service
-    ports:
-      - 8082:8082
-    networks:
-      - e-commerce-network
-    depends_on:
-      - mongo
-      - gateway-api
+  #product-service:
+  #  build:
+  #    context: ./product-service
+  #  container_name: product-service
+  #  ports:
+  #    - 8082:8082
+  #  networks:
+  #    - e-commerce-network
+  #  depends_on:
+  #    - mongo
+  #    - gateway-api
     
-  order-service:
-    build:
-      context: ./order-service
-    container_name: order-service
-    ports:
-      - 8083:8083
-    networks:
-      - e-commerce-network
-    depends_on:
-      - postgres
-      - gateway-api
+  #order-service:
+  #  build:
+  #    context: ./order-service
+  #  container_name: order-service
+  #  ports:
+  #    - 8083:8083
+  #  networks:
+  #    - e-commerce-network
+  #  depends_on:
+  #    - postgres
+  #    - gateway-api
 
-  payment-service:
-    build:
-      context: ./payment-service
-    container_name: payment-service
-    ports:
-      - 8084:8084
-    networks:
-      - e-commerce-network
-    depends_on:
-      - postgres
-      - gateway-api
+  #payment-service:
+  #  build:
+  #    context: ./payment-service
+  #  container_name: payment-service
+  #  ports:
+  #    - 8084:8084
+  #  networks:
+  #    - e-commerce-network
+  #  depends_on:
+  #    - postgres
+  #    - gateway-api
 
-  notification-service:
-    build:
-      context: ./notification-service
-    container_name: notification-service
-    ports:
-      - 8085:8085
-    networks:
-      - e-commerce-network
-    depends_on:
-      - postgres
-      - gateway-api
+  #notification-service:
+  #  build:
+  #    context: ./notification-service
+  #  container_name: notification-service
+  #  ports:
+  #    - 8085:8085
+  #  networks:
+  #    - e-commerce-network
+  #  depends_on:
+  #    - postgres
+  #    - gateway-api
 
-  shopping-service:
-    build:
-      context: ./shopping-service
-    container_name: shopping-service
-    ports:
-      - 8086:8086
-    networks:
-      - e-commerce-network
-    depends_on:
-      - mongo
-      - gateway-api
+  #shopping-service:
+  #  build:
+  #    context: ./shopping-service
+  #  container_name: shopping-service
+  #  ports:
+  #    - 8086:8086
+  #  networks:
+  #    - e-commerce-network
+  #  depends_on:
+  #    - mongo
+  #    - gateway-api
       
 networks:
   e-commerce-network:
@@ -111,5 +111,5 @@ networks:
 volumes:
   postgres_data:
     driver: local
-  mongo_data:
-    driver: local
+  #mongo_data:
+  #  driver: local
